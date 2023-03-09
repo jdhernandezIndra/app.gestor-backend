@@ -49,7 +49,5 @@ public class token {
 	public void setToken_type(String token_type) {
 		this.token_type = token_type;
 	}
-	
-	
 
 }

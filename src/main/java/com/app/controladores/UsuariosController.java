@@ -39,10 +39,11 @@ public class UsuariosController {
 		return UsuarioServices.guardar(u);
 	}
 
-	@PutMapping("actualiza")
+	@PutMapping("actualiza/{user}")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Usuario actualiza(@RequestBody Usuario u) {
-		return UsuarioServices.actualiza(u);
+	public Usuario actualiza(@PathVariable String user, @RequestBody Usuario u) {
+
+		return UsuarioServices.actualiza(user, u);
 	}
 
 	@PutMapping("inhabilitar")

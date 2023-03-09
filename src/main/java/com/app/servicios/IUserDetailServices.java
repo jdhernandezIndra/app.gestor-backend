@@ -21,8 +21,8 @@ public class IUserDetailServices implements UserDetailsService {
 		// TODO Auto-generated method stub
 		Usuario user = iUserConsumo.findOneByUsuario(usuario)
 				.orElseThrow(() -> new UsernameNotFoundException("EL USUARIO NO EXISTE"));
-
 		return new IUserDetails(user);
+
 	}
 
 }

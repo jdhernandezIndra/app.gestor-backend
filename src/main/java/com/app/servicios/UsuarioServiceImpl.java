@@ -2,6 +2,8 @@ package com.app.servicios;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class UsuarioServiceImpl implements IUsuario {
 
 	@Autowired
 	private IUsuarios UsuariosData;
+
+	Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
 	@Override
 	public List<Usuario> listar() {
@@ -36,9 +40,17 @@ public class UsuarioServiceImpl implements IUsuario {
 	}
 
 	@Override
-	public Usuario actualiza(Usuario u) {
+	public Usuario actualiza(String user, Usuario us) {
 		// TODO Auto-generated method stub
-		return UsuariosData.save(u);
+		Usuario u = UsuariosData.findOneByUsuario(user).orElse(null);
+		if (u != null) {
+			us.setId(u.getId());
+			us.setPassword(new BCryptPasswordEncoder().encode(us.getPassword()));
+			us.setUrlImagen("");
+			UsuariosData.save(us);
+		}
+		us.setPassword("");
+		return us;
 	}
 
 	@Override
