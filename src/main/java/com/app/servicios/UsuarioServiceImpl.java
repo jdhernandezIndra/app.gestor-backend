@@ -27,9 +27,11 @@ public class UsuarioServiceImpl implements IUsuario {
 	}
 
 	@Override
-	public Usuario usuarioId(Long id) {
+	public Usuario usuarioPorUser(String user) {
 		// TODO Auto-generated method stub
-		return UsuariosData.findById(id).orElse(null);
+		Usuario u=UsuariosData.findOneByUsuario(user).orElse(null);
+		u.setPassword("");
+		return u;
 	}
 
 	@Override

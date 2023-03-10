@@ -38,12 +38,12 @@ public class MediaController {
 		String path = storages.store(multipartfile);
 		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "");
 
-		String url = ServletUriComponentsBuilder.fromHttpUrl(host).path("/media/").path(path).toUriString();
+		String url = ServletUriComponentsBuilder.fromHttpUrl(host).path("/media/visualizar/").path(path).toUriString();
 
 		return Map.of("url", url);
 	}
 
-	@GetMapping("{filename:.+}")
+	@GetMapping("visualizar/{filename:.+}")
 	public ResponseEntity<Resource> getArchivo(@PathVariable String filename) throws IOException {
 		Resource file = storages.loadResource(filename);
 		String contenType = Files.probeContentType(file.getFile().toPath());

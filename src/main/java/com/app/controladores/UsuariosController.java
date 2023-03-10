@@ -28,9 +28,9 @@ public class UsuariosController {
 		return UsuarioServices.listar();
 	}
 
-	@GetMapping("{id}")
-	public Usuario usuarioId(@PathVariable Long id) {
-		return UsuarioServices.usuarioId(id);
+	@GetMapping("{user}")
+	public Usuario usuarioId(@PathVariable String user) {
+		return UsuarioServices.usuarioPorUser(user);
 	}
 
 	@PostMapping("guardar")

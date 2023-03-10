@@ -7,7 +7,7 @@ import com.app.modelos.Usuario;
 public interface IUsuario {
 	public List<Usuario> listar();
 
-	public Usuario usuarioId(Long id);
+	public Usuario usuarioPorUser(String user);
 
 	public Usuario guardar(Usuario U);
 
