@@ -48,7 +48,6 @@ public class UsuarioServiceImpl implements IUsuario {
 		if (u != null) {
 			us.setId(u.getId());
 			us.setPassword(new BCryptPasswordEncoder().encode(us.getPassword()));
-			us.setUrlImagen("");
 			UsuariosData.save(us);
 		}
 		us.setPassword("");
