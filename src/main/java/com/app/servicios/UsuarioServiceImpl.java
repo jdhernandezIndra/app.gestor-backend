@@ -42,9 +42,9 @@ public class UsuarioServiceImpl implements IUsuario {
 	}
 
 	@Override
-	public Usuario actualiza(String user, Usuario us) {
+	public Usuario actualiza(Usuario us) {
 		// TODO Auto-generated method stub
-		Usuario u = UsuariosData.findOneByUsuario(user).orElse(null);
+		Usuario u = UsuariosData.findOneByUsuario(us.getUsuario()).orElse(null);
 		if (u != null) {
 			us.setId(u.getId());
 			us.setPassword(new BCryptPasswordEncoder().encode(us.getPassword()));

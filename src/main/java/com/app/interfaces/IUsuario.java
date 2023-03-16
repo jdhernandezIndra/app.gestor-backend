@@ -11,7 +11,7 @@ public interface IUsuario {
 
 	public Usuario guardar(Usuario U);
 
-	public Usuario actualiza(String usuario,Usuario u);
+	public Usuario actualiza(Usuario u);
 
 	public Usuario inhabilitar(Usuario u);
 }

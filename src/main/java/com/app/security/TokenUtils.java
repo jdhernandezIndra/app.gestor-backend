@@ -14,10 +14,10 @@ import io.jsonwebtoken.security.Keys;
 
 public class TokenUtils {
 	private final static String ACCES_TOKEN_SECRET = "ASD563ASK455NknlkANSkhJ1LKSNaASknask35nKAN45S456";
-	private final static Long ACCES_TOKEN_VALIDITY_SECONDS = 36000L;
+	private final static Long ACCES_TOKEN_VALIDITY_SECONDS = 10800L;
 
 	public static String crearToken(String userName, String userPasword) {
-		Long tiempoExpiracion = ACCES_TOKEN_VALIDITY_SECONDS * 1_000;
+		Long tiempoExpiracion = ACCES_TOKEN_VALIDITY_SECONDS*1000;
 		Date fechaExpiracion = new Date(System.currentTimeMillis() + tiempoExpiracion);
 
 		Map<String, Object> extra = new HashMap<>();

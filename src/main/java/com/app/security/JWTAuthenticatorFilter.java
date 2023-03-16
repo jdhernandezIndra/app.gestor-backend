@@ -59,7 +59,7 @@ public class JWTAuthenticatorFilter extends UsernamePasswordAuthenticationFilter
 		tok.setAcces_token("Authorization");
 		tok.setToken_type("Bearer");
 		tok.setToken(token);
-		tok.setTime_expire(new Date(System.currentTimeMillis() + (36000L * 1_000)));
+		tok.setTime_expire(new Date(System.currentTimeMillis() + (10800L*1000)));
 		tok.setTimeAt(new Date(System.currentTimeMillis()));
 		Gson gson = new GsonBuilder().serializeNulls().create();
 		String employeeJsonString = gson.toJson(tok);
