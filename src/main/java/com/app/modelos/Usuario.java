@@ -21,6 +21,7 @@ public class Usuario {
 	private boolean estado;
 	@Column(name = "src_imagen")
 	private String urlImagen;
+	private String rol;
 
 	public Long getId() {
 		return id;
@@ -77,5 +78,15 @@ public class Usuario {
 	public void setUrlImagen(String urlImagen) {
 		this.urlImagen = urlImagen;
 	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+	
+	
 
 }

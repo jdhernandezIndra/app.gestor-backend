@@ -1,9 +1,12 @@
 package com.app.interfaces;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.app.modelos.Usuario;
@@ -25,7 +28,10 @@ public class IUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return Collections.emptyList();
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		
+		authorities.add(new SimpleGrantedAuthority(usuario.getRol()));
+		return authorities;
 	}
 
 	@Override

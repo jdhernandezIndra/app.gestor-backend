@@ -47,7 +47,7 @@ public class JWTAuthenticatorFilter extends UsernamePasswordAuthenticationFilter
 
 		IUserDetails userdataili = (IUserDetails) authResult.getPrincipal();
 
-		String token = TokenUtils.crearToken("gestor", userdataili.getUsername());
+		String token = TokenUtils.crearToken(userdataili,"gestor",userdataili.getUsername());
 
 		PrintWriter out = response.getWriter();
 		response.setContentType("aplication/json");
