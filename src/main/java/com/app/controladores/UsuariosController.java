@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +24,13 @@ public class UsuariosController {
 	@Autowired
 	private UsuarioServiceImpl UsuarioServices;
 
-	//@Secured({"ROLE_ADMIN"})
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("lista")
 	public List<Usuario> listar() {
 		return UsuarioServices.listar();
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("us/{user}")
 	public Usuario usuarioId(@PathVariable String user) {
 		return UsuarioServices.usuarioPorUser(user);
@@ -43,6 +42,7 @@ public class UsuariosController {
 		return UsuarioServices.guardar(u);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("actualiza")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Usuario actualiza(@RequestBody Usuario u) {
@@ -50,6 +50,7 @@ public class UsuariosController {
 		return UsuarioServices.actualiza(u);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping("inhabilitar")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Usuario inhabilitar(@RequestBody Usuario u) {
