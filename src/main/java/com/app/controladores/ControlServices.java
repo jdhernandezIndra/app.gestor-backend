@@ -19,6 +19,17 @@ public class ControlServices {
 		return "Pong!";
 	}
 
+	// Prueba de envio de diferentes datos y contemplar diferentes posibilidades
+//	@GetMapping("ping")
+//	public Map<String, Object> ping() {
+//
+//		Map<String, Object> response = new HashMap<>();
+//		
+//		response.put("msg", "Respuesta correcta");
+//		response.put("ping", "Pong!");
+//		response.put("usuarios", UsuarioServices.listar());
+//		return response;
+//	}
 
 	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	@GetMapping("token/habilita/{user}")
