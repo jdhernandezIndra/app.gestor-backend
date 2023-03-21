@@ -57,4 +57,11 @@ public class UsuariosController {
 		return UsuarioServices.inhabilitar(u);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PutMapping("rol")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Usuario cambiarRol(@RequestBody Usuario u) {
+		return UsuarioServices.cambioRol(u);
+	}
+
 }

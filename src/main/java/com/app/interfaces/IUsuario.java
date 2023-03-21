@@ -14,4 +14,6 @@ public interface IUsuario {
 	public Usuario actualiza(Usuario u);
 
 	public Usuario inhabilitar(Usuario u);
+	
+	public Usuario cambioRol(Usuario u);
 }

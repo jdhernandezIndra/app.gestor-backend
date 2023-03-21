@@ -29,7 +29,7 @@ public class UsuarioServiceImpl implements IUsuario {
 	@Override
 	public Usuario usuarioPorUser(String user) {
 		// TODO Auto-generated method stub
-		Usuario u=UsuariosData.findOneByUsuario(user).orElse(null);
+		Usuario u = UsuariosData.findOneByUsuario(user).orElse(null);
 		u.setPassword("");
 		return u;
 	}
@@ -56,8 +56,23 @@ public class UsuarioServiceImpl implements IUsuario {
 
 	@Override
 	public Usuario inhabilitar(Usuario u) {
-		// TODO Auto-generated method stub
+		Usuario user = UsuariosData.findOneByUsuario(u.getUsuario()).orElse(null);
+
+		if (user != null) {
+			user.setEstado(false);
+			;
+		}
 		return UsuariosData.save(u);
+	}
+
+	@Override
+	public Usuario cambioRol(Usuario u) {
+		Usuario user = UsuariosData.findOneByUsuario(u.getUsuario()).orElse(null);
+
+		if (user != null) {
+			user.setRol(u.getRol());
+		}
+		return UsuariosData.save(user);
 	}
 
 }
