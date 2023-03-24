@@ -23,6 +23,7 @@ public class UsuarioServiceImpl implements IUsuario {
 	@Override
 	public List<Usuario> listar() {
 		// TODO Auto-generated method stub
+
 		return (List<Usuario>) UsuariosData.findAll();
 	}
 
