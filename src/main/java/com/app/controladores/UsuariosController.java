@@ -1,10 +1,13 @@
 package com.app.controladores;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.modelos.Usuario;
+import com.app.pdf.UsuariosExcel;
+import com.app.pdf.UsuariosPdf;
 import com.app.servicios.UsuarioServiceImpl;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("usuarios/")
@@ -63,5 +70,46 @@ public class UsuariosController {
 	public Usuario cambiarRol(@RequestBody Usuario u) {
 		return UsuarioServices.cambioRol(u);
 	}
+	
+//	@GetMapping("/lista/pdf")
+//	public Map<String, String>  response(HttpServletResponse response) {
+//		response.setContentType("application/pdf");
+//		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte.pdf"));
+//		
+//		
+//		return Map.of("url", "pdf");
+//	}
+	
+    @GetMapping("/pdf/lista")
+    public void downloadFile(HttpServletResponse response) throws IOException {
+        UsuariosPdf generator = new UsuariosPdf();
+        byte[] pdfReport = generator.getPDF(UsuarioServices.listar()).toByteArray();
+
+        String mimeType =  "application/pdf";
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte_usuarios.pdf"));
+
+        response.setContentLength(pdfReport.length);
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream( pdfReport);
+
+        FileCopyUtils.copy(inStream, response.getOutputStream());
+    }
+    
+    @GetMapping("/excel/lista")
+    public void downloadFileExcel(HttpServletResponse response) throws IOException {
+        UsuariosExcel generator = new UsuariosExcel();
+        byte[] ExcelReport = generator.getExcel(UsuarioServices.listar()).readAllBytes();
+
+        String mimeType =  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte_usuarios.xlsx"));
+
+        response.setContentLength(ExcelReport.length);
+
+        ByteArrayInputStream inStream = new ByteArrayInputStream( ExcelReport);
+
+        FileCopyUtils.copy(inStream, response.getOutputStream());
+    }
 
 }

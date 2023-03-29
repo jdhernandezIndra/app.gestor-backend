@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 		jwtauthenticationfilter.setFilterProcessesUrl("/token");
 
 		return http.cors().and().csrf().disable().authorizeHttpRequests().requestMatchers("/usuarios/guardar")
-				.permitAll().requestMatchers("/media/visualizar/**").permitAll().anyRequest().authenticated().and()
+				.permitAll().requestMatchers("/media/visualizar/**").permitAll().requestMatchers("/usuarios/pdf/**").permitAll().requestMatchers("/usuarios/excel/**").permitAll().anyRequest().authenticated().and()
 				.httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilter(jwtauthenticationfilter)
 				.addFilterBefore(jwtauthorizationfilter, UsernamePasswordAuthenticationFilter.class).build();
