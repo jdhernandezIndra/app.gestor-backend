@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.excel.UsuariosExcel;
 import com.app.modelos.Usuario;
-import com.app.pdf.UsuariosExcel;
 import com.app.pdf.UsuariosPdf;
 import com.app.servicios.UsuarioServiceImpl;
 
