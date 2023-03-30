@@ -70,7 +70,7 @@ public class UsuariosController {
 	public Usuario cambiarRol(@RequestBody Usuario u) {
 		return UsuarioServices.cambioRol(u);
 	}
-	
+
 //	@GetMapping("/lista/pdf")
 //	public Map<String, String>  response(HttpServletResponse response) {
 //		response.setContentType("application/pdf");
@@ -79,37 +79,39 @@ public class UsuariosController {
 //		
 //		return Map.of("url", "pdf");
 //	}
-	
-    @GetMapping("/pdf/lista")
-    public void downloadFile(HttpServletResponse response) throws IOException {
-        UsuariosPdf generator = new UsuariosPdf();
-        byte[] pdfReport = generator.getPDF(UsuarioServices.listar()).toByteArray();
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@GetMapping("/pdf/lista")
+	public void downloadFile(HttpServletResponse response) throws IOException {
+		UsuariosPdf generator = new UsuariosPdf();
+		byte[] pdfReport = generator.getPDF(UsuarioServices.listar()).toByteArray();
 
-        String mimeType =  "application/pdf";
-        response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte_usuarios.pdf"));
+		String mimeType = "application/pdf";
+		response.setContentType(mimeType);
+		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte_usuarios.pdf"));
 
-        response.setContentLength(pdfReport.length);
+		response.setContentLength(pdfReport.length);
 
-        ByteArrayInputStream inStream = new ByteArrayInputStream( pdfReport);
+		ByteArrayInputStream inStream = new ByteArrayInputStream(pdfReport);
 
-        FileCopyUtils.copy(inStream, response.getOutputStream());
-    }
-    
-    @GetMapping("/excel/lista")
-    public void downloadFileExcel(HttpServletResponse response) throws IOException {
-        UsuariosExcel generator = new UsuariosExcel();
-        byte[] ExcelReport = generator.getExcel(UsuarioServices.listar()).readAllBytes();
+		FileCopyUtils.copy(inStream, response.getOutputStream());
+	}
 
-        String mimeType =  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        response.setContentType(mimeType);
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", "reporte_usuarios.xlsx"));
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@GetMapping("/excel/lista")
+	public void downloadFileExcel(HttpServletResponse response) throws IOException {
+		UsuariosExcel generator = new UsuariosExcel();
+		byte[] ExcelReport = generator.getExcel(UsuarioServices.listar()).readAllBytes();
 
-        response.setContentLength(ExcelReport.length);
+		String mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+		response.setContentType(mimeType);
+		response.setHeader("Content-Disposition",
+				String.format("attachment; filename=\"%s\"", "reporte_usuarios.xlsx"));
 
-        ByteArrayInputStream inStream = new ByteArrayInputStream( ExcelReport);
+		response.setContentLength(ExcelReport.length);
 
-        FileCopyUtils.copy(inStream, response.getOutputStream());
-    }
+		ByteArrayInputStream inStream = new ByteArrayInputStream(ExcelReport);
+
+		FileCopyUtils.copy(inStream, response.getOutputStream());
+	}
 
 }
